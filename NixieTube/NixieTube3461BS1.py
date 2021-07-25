@@ -1,8 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 """
 3461BS-1 數碼管顯示
-持續掃描顯示，可輸入字串來更新顯示，如 "1234" "12.34" "A.1.2.3" "[1.2]" 等等
+獨立執行緒持續掃描顯示，可輸入字串來更新顯示，如 "1234" "12.34" "A.1.2.3" "[1.2]" 等等
 """
 
 
@@ -11,7 +11,7 @@ import time
 import threading
 
 
-class DigitalTubeShow(threading.Thread):
+class NixieTube(threading.Thread):
 
     # 接線圖
     #   數字 GPIO 埠: 1-7 和 小數點 DP
@@ -46,9 +46,9 @@ class DigitalTubeShow(threading.Thread):
     text: str = ""
     # </設定>
 
-    # 設定模式 GPIO 編號模式
+    # 設定 GPIO 編號模式
     RPi.GPIO.setmode(RPi.GPIO.BCM)
-    # 設定用作輸入或輸出的每個通道
+    # 設定用作輸出的每個通道
     for n in LED:
         RPi.GPIO.setup(n, RPi.GPIO.OUT)
     for n in DIG:
@@ -119,9 +119,10 @@ class DigitalTubeShow(threading.Thread):
 
     def showChar(self, group: int, char: str, dot=False) -> bool:
         """ 顯示某個字元
-        @param {int}  group 數字序號
-        @param {str}  char  要顯示的字元
-        @param {bool} dot   顯示小數點
+        @param  {int}  group 數字序號
+        @param  {str}  char  要顯示的字元
+        @param  {bool} dot   顯示小數點
+        @return {bool} 是否成功執行
         """
         # 檢查是否在範圍內
         if char not in self.DAT:
@@ -151,7 +152,8 @@ class DigitalTubeShow(threading.Thread):
     def showString(self, displayStr: str) -> bool:
         """ 顯示字串
         例如： "1234" "12.34" "A.1.2.3" "[1.2]"
-        @param {str} displayStr 顯示字串
+        @param  {str} displayStr 顯示字串
+        @return {bool} 是否成功執行
         """
         # 分別檢查檢查無 . 的長度和 . 的長度
         noDotStr: str = displayStr.replace(".", "")
@@ -210,11 +212,11 @@ class DigitalTubeShow(threading.Thread):
                     self.last = self.text
             elif self.text != self.last:
                     self.text = self.last
-        print("Exit DigitalTubeShow...")
+        print("Exit NixieTubeShow...")
 
 
-# 使用示例：
-# tubeShow = DigitalTubeShow()
+# 使用示例（每秒累加的數字）：
+# tubeShow = NixieTube()
 # tubeShow.start()
 # startTime = time.time()
 # try:

@@ -1,10 +1,8 @@
-# SPDX-FileCopyrightText: 2017 Tony DiCola for Adafruit Industries
-# SPDX-FileCopyrightText: 2017 James DeVito for Adafruit Industries
-# SPDX-License-Identifier: MIT
-
-# This example is for use on (Linux) computers that are using CPython with
-# Adafruit Blinka to support CircuitPython libraries. CircuitPython does
-# not support PIL/pillow (python imaging library)!
+#!/usr/bin/python3
+# -*- coding: UTF-8 -*-
+"""
+获取树莓派的系统信息
+"""
 
 import time
 import subprocess

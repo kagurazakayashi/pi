@@ -4,7 +4,7 @@
 LED交通信号灯模块 5V 红绿灯发光模块
 """
 
-import RPi.GPIO
+import GPIO as GPIO
 import time
 
 
@@ -18,10 +18,10 @@ class RYGLED():
     # </設定>
 
     # 設定 GPIO 編號模式
-    RPi.GPIO.setmode(RPi.GPIO.BCM)
+    GPIO.setmode(GPIO.BCM)
     # 設定用作輸出的每個通道
     for n in LED:
-        RPi.GPIO.setup(n, RPi.GPIO.OUT)
+        GPIO.setup(n, GPIO.OUT)
 
     def autoNot(self, val: bool) -> bool:
         """ 陰極陽極切換
@@ -56,10 +56,10 @@ class RYGLED():
         y: int = int(switch % 100 / 10)
         g: int = int(switch % 10)
         i: int = 0
-        RPi.GPIO.output(self.LED, self.autoNot(False))  # for n in LED
+        GPIO.output(self.LED, self.autoNot(False))  # for n in LED
         for isLight in [r, y, g]:
             gpio: int = self.LED[i]
-            RPi.GPIO.output(gpio, self.autoNot(isLight))
+            GPIO.output(gpio, self.autoNot(isLight))
             i += 1
 
     def lightOne(self, open: int):
@@ -71,9 +71,9 @@ class RYGLED():
         elif open < -1:
             open = -1
         switch: int = open + 1
-        RPi.GPIO.output(self.LED, self.autoNot(False))  # for n in LED
+        GPIO.output(self.LED, self.autoNot(False))  # for n in LED
         gpio: int = self.LED[switch]
-        RPi.GPIO.output(gpio, self.autoNot(True))  # for n in LED
+        GPIO.output(gpio, self.autoNot(True))  # for n in LED
 
 
 # 使用示例（灯依次动画开关）：
@@ -86,4 +86,4 @@ try:
             time.sleep(1)
 except KeyboardInterrupt:
     print("Exit...")
-    RPi.GPIO.cleanup()
+    GPIO.cleanup()

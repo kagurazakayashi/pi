@@ -16,7 +16,7 @@ import LCD1602 as LCD # wget https://raw.githubusercontent.com/dengzii/Respberry
 # 初始化 LCD 驱动库
 LCD.init_lcd()
 # 显示字符串（第几个字符，第几行，字符串）
-LCD.print_lcd(2, 0, 'LINE 1')
+LCD.print_lcd(0, 0, '1234567890123456')
 LCD.print_lcd(3, 1, 'LINE 2')
 # 背光开关 0/1
 LCD.turn_light(1)

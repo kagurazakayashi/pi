@@ -1,0 +1,16 @@
+[Unit]
+Description=OLED I2C 128X64 SYSTEM INFO
+Documentation=https://github.com/kagurazakayashi/pi
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/pi/pi/statled.py >/dev/null
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=false
+User=pi
+Group=pi
+
+[Install]
+WantedBy=multi-user.target

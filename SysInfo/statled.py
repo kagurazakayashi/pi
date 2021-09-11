@@ -34,7 +34,7 @@ display = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c, addr=0x3c)
 # 装载默认字体（不支持中文）
 # font = ImageFont.load_default()
 # 加载自定字体
-font = ImageFont.truetype("simsun.ttc", 18, encoding="unic")  # 设置字体
+font = ImageFont.truetype("/home/pi/pi/simsun.ttc", 18, encoding="unic")  # 设置字体
 
 oldNetSpeed = {}
 cpumax = 0
